@@ -9,10 +9,10 @@ MCP (ModelContextProvider) server template
 To build the container image locally using Podman, run:
 
 ```sh
-podman build -t mcp-server:latest .
+podman build -t mcp-server-template:latest .
 ```
 
-This will create a local image named `mcp-server:latest` that you can use to run the server.
+This will create a local image named `mcp-server-template:latest` that you can use to run the server.
 
 ## Running with Podman or Docker
 
@@ -29,7 +29,7 @@ Example configuration for running with Podman:
         "--rm",
         "-e", "API_BASE_URL",
         "-e", "API_KEY",
-        "localhost/mcp-server:latest"
+        "localhost/mcp-server-template:latest"
       ],
       "env": {
         "API_BASE_URL": "https://api.example.com",
