@@ -6,7 +6,7 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("mcp-server")
 
-API_BASE = os.environ["API_BASE"]
+API_BASE_URL = os.environ["API_BASE_URL"]
 
 
 async def make_request(
@@ -33,7 +33,7 @@ async def make_request(
 @mcp.tool()
 async def example():
     """Simple example tool to demonstrate MCP server functionality."""
-    url = f"{API_BASE}/example"
+    url = f"{API_BASE_URL}/example"
     response = await make_request(url)
     return response
 

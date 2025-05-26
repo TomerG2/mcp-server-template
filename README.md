@@ -27,12 +27,12 @@ Example configuration for running with Podman:
         "run",
         "-i",
         "--rm",
-        "-e", "API_BASE",
+        "-e", "API_BASE_URL",
         "-e", "API_KEY",
         "localhost/mcp-server:latest"
       ],
       "env": {
-        "API_BASE": "https://api.example.com",
+        "API_BASE_URL": "https://api.example.com",
         "API_KEY": "REDACTED"
       }
     }
