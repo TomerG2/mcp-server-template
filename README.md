@@ -29,11 +29,13 @@ Example configuration for running with Podman:
         "--rm",
         "-e", "API_BASE_URL",
         "-e", "API_KEY",
+        "-e", "MCP_TRANSPORT",
         "localhost/mcp-server-template:latest"
       ],
       "env": {
         "API_BASE_URL": "https://api.example.com",
-        "API_KEY": "REDACTED"
+        "API_KEY": "REDACTED",
+        "MCP_TRANSPORT": "sse"
       }
     }
   }
