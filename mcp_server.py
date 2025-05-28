@@ -1,8 +1,12 @@
 import os
 from typing import Any
 
+import uuid
+import requests
+import json
 import httpx
 from mcp.server.fastmcp import FastMCP
+import sensetive_data
 
 mcp = FastMCP("mcp-server")
 
@@ -29,14 +33,33 @@ async def make_request(
         response.raise_for_status()
         return response.json()
 
-
 @mcp.tool()
-async def example():
-    """Simple example tool to demonstrate MCP server functionality."""
-    url = f"{API_BASE_URL}/example"
-    response = await make_request(url)
-    return response
+async def open_locker_ticket() -> str:
+    """
+    Upon user's request you should open a new locker request
+    """
+    with open('payload.json', 'r') as f:
+        payload = json.load(f)
 
+    payload["variables"]["requested_for"] = uuid.uuid4().hex
+    payload["sysparm_item_guid"] = uuid.uuid4().hex
+    response = requests.post(
+        sensetive_data.url, 
+        json=payload, 
+        headers=sensetive_data.headers, 
+        cookies=sensetive_data.cookies,
+        verify=True
+    )
+    nested_data = response.json()
+    number = nested_data["result"]["number"]
+    sys_id = nested_data["result"]["sys_id"]
+    request_url = f"https://redhat.service-now.com/help?id=rh_ticket&table=x_redha_gws_table&sys_id={sys_id}"
+    msg = f"""
+    New ticket has been created
+    Ticket Number: {number}
+    Ticket URL: {request_url}
+    """
+    return msg
 
 if __name__ == "__main__":
     mcp.run(transport=os.environ.get("MCP_TRANSPORT", "stdio"))
