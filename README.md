@@ -35,7 +35,7 @@ Example configuration for running with Podman:
       "env": {
         "API_BASE_URL": "https://api.example.com",
         "API_KEY": "REDACTED",
-        "MCP_TRANSPORT": "sse"
+        "MCP_TRANSPORT": "stdio"
       }
     }
   }
